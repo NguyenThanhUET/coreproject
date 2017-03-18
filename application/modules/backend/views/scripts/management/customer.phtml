@@ -1,0 +1,47 @@
+<?php
+$uri = $this->serverUrl();
+?>
+<link type="text/css" rel="stylesheet" href="/templates/css/form/backend/admin_waiting.css">
+<link type="text/css" rel="stylesheet" href="/templates/css/backend_common.css">
+<?php $noimage=$this->noimage; ?>
+<div class="page-content-admin">
+    <div class="message"></div>
+    <div class="w-data-table">
+        <div class="w-body-table-fix-1 tbl-data-search" >
+            <table id="tbl-seach-1" class="tbl-body-1 table-bordered">
+                <thead>
+                <tr>
+                    <th width="5%" >ID</th>
+                    <th width="10%">USERNAME</th>
+                    <th width="15%">EMAIL</th>
+                    <th width="20%">Wallet ADDRESS</th>
+                    <th width="10%">MOBILE</th>
+                    <th width="20%">IP ADRESS</th>
+                    <th width="10%">ACTIVE</th>
+                    <th width="10%">DELETE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if(isset($this->data) && !empty($this->data)){ $i= 0;?>
+                    <?php foreach($this->data as $row){ $i++;
+                        ?>
+                        <tr class="tr-record" record-id="<?php echo $row['ID'];?>">
+                            <td width="5%" align="center"><?php echo $row['ID'];?></td>
+                            <td width="10%" align="center"><?php echo $row['UserName'];?></td>
+                            <td width="15%" align="center"><?php echo $row['Email'];?></td>
+                            <td width="20%" align="center"><?php echo $row['WalletAddress'];?></td>
+                            <td width="10%" align="center"><?php echo $row['Mobile'];?></td>
+                            <td width="20%" align="center"><?php echo $row['client_ip'];?></td>
+                            <td width="10%" class="text-center"><input type="checkbox" class="active-flg" <?php if(1*$row['isActive']==1){ ?> checked="checked"<?php } ?>></td>
+                            <td width="10%" class="text-center"><span class="delete-btn label label-sm label-dark" style="cursor: pointer; width: 60px;">REMOVE</span></td>
+                        </tr>
+                    <?php } ?>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" src="/templates/js/form/backend/admin_customer.js"></script>

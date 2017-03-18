@@ -1,0 +1,206 @@
+<?php
+$amountInit =   0.15;
+$amount  = isset($this->investData['amount'])?$this->investData['amount']:$amountInit;
+$blockchain="https://blockchain.info/wallet/#/";
+?>
+<link rel="stylesheet" type="text/css" href="/templates/css/form/frontend/invest.css"/>
+<!--<link type="text/css" rel="stylesheet" href="/templates/css/form/invest.css">-->
+<div class="page-content">
+    <div style="background: transparent; border: 0; box-shadow: none !important" class="tab-content pan mtl mbn responsive">
+        <div id="tab-form-actions" class="tab-pane fade active in">
+            <div style="width: 100%">
+                <div class="col-lg-12">
+                    <div class="panel panel-blue">
+                        <div class="panel-body pan">
+                            <div class="">
+                                <div style="padding-bottom:24px;" class="bgcab">
+                                    <div style="font-size:16px;">
+                                        <div class="cabh" style="clear: both;">New deposit section</div>
+                                        <div method="post" name="spendform">
+                                            <input type="hidden" name="a" value="deposit">
+<!--                                            <b>Select a plan:</b><br>-->
+                                            <br><br>
+                                            <?php $i = 0;
+                                            if(!empty($this->investData)){?>
+                                                <?php foreach($this->investData as $row){
+                                                    $i++;
+                                                    ?>
+                                            <table cellspacing="1" cellpadding="2" border="0" width="100%"><tbody><tr>
+                                                    <td colspan="3">
+                                                        <input type="radio" class="feemode" name="feemode" value="<?php echo $row['ID'];?>" amount="<?php echo $row['amount'];?>" checked="">
+                                                        <!--	<input type=radio name=h_id value='1'  checked  > -->
+
+                                                        <b>PLAN <?php echo $i;?> : SEND <?php echo $row['amount'];?>(BTC) , RECIVE <?php echo $row['recived'];?>(BTC) A DAY IN <?php echo $row['duration'];?> DAYS</b></td>
+                                                </tr><tr>
+                                                    <td class="inheader">Plan</td>
+                                                    <td class="inheader" width="200">Spent Amount (BTC)</td>
+                                                    <td class="inheader" width="100" nowrap=""><nobr>Day Profit (BTC)</nobr></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item">PLAN <?php echo $i;?> : SEND <?php echo $row['amount'];?>(BTC) , RECIVE <?php echo $row['recived'];?>(BTC) A DAY IN <?php echo $row['duration'];?> DAYS</td>
+                                                    <td class="item" align="right"><?php echo $row['amount'];?></td>
+                                                    <td class="item" align="right"><?php echo $row['recived_day'];?></td>
+                                                </tr>
+                                                </tbody></table><br><br>
+                                                <?php }?>
+                                            <?php }?>
+                                            <table cellspacing="0" cellpadding="2" border="0">
+                                                <tbody><tr>
+                                                    <td>Your account balance (BTC):</td>
+                                                    <td align="right" id="choose-amount">0.00</td>
+                                                </tr>
+                                                <tr><td>&nbsp;</td>
+                                                    <td align="right">
+                                                        <small>
+                                                        </small>
+                                                    </td>
+                                                </tr>
+                                                <?php if($this->investValid == 1){?>
+                                                <tr class="coin_no" style="border-top: 1px solid green;">
+                                                    <td valign="top" style="padding-top: 5px;">
+                                                        <div class="intro">
+                                                            1.	Go to <a target="_blank" href="https://blockchain.info/wallet/#/">blockchain.info</a> and get Bitcoins (BTC) if you don't have it.<br>
+                                                            2.	<a target="_blank" title="" href="https://blockchain.info/wallet/#/">Send</a> <span class="send-1"><?php echo $amount?></span> Bitcoins (in ONE payment) to the address below.<br>
+                                                            &nbsp; &nbsp; If you send <b>any other bitcoin amount</b>, payment system will <b>ignore it</b> !<br>
+                                                        </div>
+                                                        <div class="intro_send">Send EXACTLY <span class="font12 send-1"><?php echo $amount?></span> BTC (<a class="tooltip-fee" href="#" title="" style="font-weight: normal;">plus fees</a>) to:</div>
+                                                        <div style="text-align: left">
+                                                            <table cellpadding="0" cellspacing="0"><tbody><tr>
+                                                                    <td>
+                                                                        <div class="addr tooltip-top" title="" style="margin-right: 12px;     width: 320px;">
+                                                                            <a id="adminaddress" value="<?php echo $this->adminWallet;?>" href="bitcoin:<?php echo $this->adminWallet;?>?amount=<?php echo $amount?>&amp;label=Payment"><?php echo $this->adminWallet;?></a>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="min-width:80px">
+                                                                        <button  class="btn-wallet tooltip-top4 buttn butcblue" onclick="window.open('<?php echo $blockchain;?>','_blank', 'location=yes,height=570,width=520' );" title="">Open Wallet</button></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                    <td style="text-align: center; padding-top: 5px;">
+                                                        <div class="">
+                                                            <img id="upload-image-img" src="/templates/images/no-image.png" style="cursor: pointer; width: 306px;height: 170px ;" />
+                                                            <input type="file" id="upload-image" style="display: none; margin-top: 10px;" />
+                                                            <button id="submittran" class="btn-wait tooltip-top3 buttn butcblue" style="margin-top: 5px; " title=""> &nbsp; <span class="btn-spinner"></span><span id="btn-text">Waiting Verify Image From You &nbsp; </span> </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php }else{ ?>
+                                                    <tr style="border-top: 1px solid green;">
+                                                        <td colspan="2" style="color: red; padding-top: 30px;">You has invest</td>
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    //new Clipboard('.btn-copy');
+    $(document).ready(function() {
+        try {
+            $('.feemode').each(function(){
+                if($(this).is(':checked')){
+                    var amount = $(this).attr('amount');
+                    $('#choose-amount').html(amount);
+                    $('.send-1').html(amount);
+                }
+            })
+            $(document).on('click','#upload-image-img',function(){
+                $('#upload-image').trigger('click');
+            });
+            $(document).on('click','.feemode',function(){
+                var amount = $(this).attr('amount');
+                $('#choose-amount').html(amount);
+                $('.send-1').html(amount);
+            });
+
+            $(document).on('change','#upload-image',function(){
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#upload-image-img')
+                        .attr('src', e.target.result)
+                };
+                reader.readAsDataURL($(this).context.files[0]);
+                $('#btn-text').html('Click to submit');
+                $('.btn-spinner').remove();
+                $('#submittran').prop('disabled',false);
+            });
+            $(document).on('click','#submittran',function(){
+                //var reader = new FileReader();
+                //reader.readAsDataURL($('#upload-image').context.files[0]);
+                var _packageMode = 1;
+                $('.feemode').each(function(){
+                  if($(this).is(':checked')){
+                      _packageMode = $(this).val();
+                  }
+                })
+                uploadFile('#upload-image',_packageMode,function(){
+                    $('#submittran').prop('disabled',true);
+                    jAlert('Upload successfull','Success',function(r){
+                            if(r){
+                                location.href='/frontend/member/investstatus';
+                            }
+                        });
+                });
+            });
+
+        } catch (e) {
+            alert('ready' + e.message);
+        }
+    });
+    /**
+     * upload file
+     *
+     * @author  :   viettd - 2015/11/18 - create
+     * @param
+     * @param
+     * @return
+     */
+    function uploadFile(input,_packageMode,callback) {
+            var data = new FormData();
+
+            data.append('fileUpload', $(input).get(0).files[0]);
+            data.append('_packageMode',  _packageMode);
+            $.ajax({
+                url : '/frontend/upload/upload',
+                type : 'POST',
+                loading: true,
+                data : data,
+                enctype:"multipart/form-data",
+                processData : false,
+                contentType : false,
+                success: function(res){
+                    switch (res['status']) {
+                        case "1":
+                            if(callback){
+                                callback();
+                            }
+                            break;
+                        case 201:
+
+                            break;
+                        case 202:
+
+                            break;
+                        default:
+
+                            break;
+                    }
+                },
+                error: function(){
+
+                }
+            });
+        };
+
+</script>
